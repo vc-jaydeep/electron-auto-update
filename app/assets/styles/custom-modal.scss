@@ -1,0 +1,23 @@
+
+ion-modal.reverify-payment-request {
+    --width: 400px;
+    --height: auto;
+    --border-radius: 15px;
+    padding: 25px;
+
+    ion-img.payment-request-img {
+        width: 200px;
+        margin: 20px auto;
+    }
+
+    ion-img.qr-img {
+        width: 150px;
+        margin: 20px auto;
+    }
+
+    ion-button.common-btn {
+        max-width: 200px;
+        margin: 15px auto;
+        --border-radius: 15px;
+    }
+}

@@ -1,0 +1,154 @@
+{
+    "countries": [
+        {
+            "name": "Canada",
+            "dial_code": "+1",
+            "code": "+1 Canada"
+        },
+        {
+            "name": "Cuba",
+            "dial_code": "+53",
+            "code": "+53 Cuba"
+        },
+        {
+            "name": "Greenland",
+            "dial_code": "+299",
+            "code": "+299 Greenland "
+        },
+        {
+            "name": "Mexico",
+            "dial_code": "+52",
+            "code": "+52 Mexico"
+        },
+        {
+            "name": "United States",
+            "dial_code": "+1",
+            "code": "+1 United States"
+        },
+        {
+            "name": "India",
+            "dial_code": "+91",
+            "code": "+91 India"
+        },
+        {
+            "name": "Hong Kong",
+            "dial_code": "+852",
+            "code": "+852 Hong Kong"
+        },
+        {
+            "name": "Indonesia",
+            "dial_code": "+62",
+            "code": "+62 Indonesia"
+        },
+        {
+            "name": "Japan",
+            "dial_code": "+81",
+            "code": "+81 Japan"
+        },
+        {
+            "name": "Malaysia",
+            "dial_code": "+60",
+            "code": "+60 Malaysia"
+        },
+        {
+            "name": "Maldives",
+            "dial_code": "+960",
+            "code": "+960 Maldives"
+        },
+        {
+            "name": "Philippines",
+            "dial_code": "+63",
+            "code": "+63 Philippines"
+        },
+        {
+            "name": "Singapore",
+            "dial_code": "+65",
+            "code": "+65 Singapore"
+        },
+        {
+            "name": "Austria",
+            "dial_code": "+43",
+            "code": "+43 Austria"
+        },
+        {
+            "name": "Belgium",
+            "dial_code": "+32",
+            "code": "+32 Belgium"
+        },
+        {
+            "name": "Denmark",
+            "dial_code": "+45",
+            "code": "+45 Denmark"
+        },
+        {
+            "name": "Germany",
+            "dial_code": "+49",
+            "code": "+49 Germany"
+        },
+        {
+            "name": "France",
+            "dial_code": "+33",
+            "code": "+33 France"
+        },
+        {
+            "name": "Italy",
+            "dial_code": "+39",
+            "code": "+39 Italy"
+        },
+        {
+            "name": "Ireland",
+            "dial_code": "+353",
+            "code": "+353 Ireland"
+        },
+        {
+            "name": "Netherlands",
+            "dial_code": "+31",
+            "code": "+31 Netherlands"
+        },
+        {
+            "name": "Norway",
+            "dial_code": "+47",
+            "code": "+47 Norway"
+        },
+        {
+            "name": "Portugal",
+            "dial_code": "+351",
+            "code": "+351 Portugal"
+        },
+        {
+            "name": "Romania",
+            "dial_code": "+40",
+            "code": "+40 Romania"
+        },
+        {
+            "name": "Switzerland",
+            "dial_code": "+41",
+            "code": "+41 Switzerland"
+        },
+        {
+            "name": "Sweden",
+            "dial_code": "+46",
+            "code": "+46 Sweden"
+        },
+        {
+            "name": "United Kingdom",
+            "dial_code": "+44",
+            "code": "+44 United Kingdom"
+        },
+        {
+            "name": "South Africa",
+            "dial_code": "+27",
+            "code": "+27 South Africa"
+        },
+        {
+            "name": "Australia",
+            "dial_code": "+61",
+            "code": "+61 Australia"
+        },
+        {
+            "name": "New Zealand",
+            "dial_code": "+64",
+            "code": "+64 New Zealand"
+        }
+    ]
+}
