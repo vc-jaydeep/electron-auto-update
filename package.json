@@ -2,33 +2,39 @@
   "name": "capacitor-app",
   "version": "1.0.0",
   "description": "An Amazing Capacitor App",
-  "main": "app.js",
+  "main": "pos.js",
   "scripts": {
     "electron:start:kiosk": "electron app.js",
     "electron:start:pos": "electron pos.js",
     "package-win:kiosk": "electron-packager . electron:start:kiosk --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/everyticket.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='EveryTicket KIOSK'",
     "package-win:pos": "electron-packager . electron:start:pos --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/everyticket.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='EveryTicket POS'",
-    "build": "electron-builder build --win --publish never",
-    "deploy": "electron-builder build --win --publish always"
+    "deploy": "electron-builder"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vc-jaydeep/electron-auto-update.git"
+  "repository": "https://github.com/vc-jaydeep/electron-auto-update.git",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
+  "build": {
+    "appId": "com.EveryTicket.autoupdater",
+    "productName": "Autoupdater app",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist"
+    }
   },
   "dependencies": {
     "@capacitor/electron": "^2.5.0",
     "electron-is-dev": "^1.1.0",
+    "electron-store": "^8.1.0",
     "electron-updater": "^6.1.4"
   },
   "devDependencies": {
     "electron": "^24.8.8",
     "electron-builder": "^24.6.4",
     "electron-packager": "^17.1.1"
-  },
-  "build": {
-    "win": {
-      "publisherName": "EveryTicket-Kiosk"
-    }
   },
   "keywords": [
     "capacitor",

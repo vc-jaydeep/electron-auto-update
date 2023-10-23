@@ -4,3 +4,4 @@
 
 node_modules/
 electron-builder.yml
+dist
