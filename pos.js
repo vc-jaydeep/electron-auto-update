@@ -5,85 +5,99 @@ const { autoUpdater } = require('electron-updater');
 
 let mainWindow;
 
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
+
 function createWindow() {
-    mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        autoHideMenuBar: true,
-        fullscreen: false,
-        show: false,
-        modal: true,
-        icon: `${__dirname}/assets/icons/win/everyticket.ico`,
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false
-        }
-    })
-    splash = new BrowserWindow({
-        width: 500,
-        height: 300,
-        frame: false,
-        alwaysOnTop: true,
-        transparent: true,
-        webPreferences: {
-            nodeIntegration: true
-        }
-    });
-    splash.loadFile('splash_assets/splash.html');
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, `/app/index.html`),
-        protocol: "file:",
-        slashes: true
-    }));
-    mainWindow.once("ready-to-show", () => {
-        splash.hide();
-        mainWindow.show();
-        mainWindow.maximize();
-        autoUpdater.checkForUpdatesAndNotify();
-    });
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    autoHideMenuBar: true,
+    fullscreen: false,
+    show: false,
+    modal: true,
+    icon: `${__dirname}/assets/icons/win/everyticket.ico`,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  })
+  splash = new BrowserWindow({
+    width: 500,
+    height: 300,
+    frame: false,
+    alwaysOnTop: true,
+    transparent: true,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+  splash.loadFile('splash_assets/splash.html');
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, `/app/index.html`),
+    protocol: "file:",
+    slashes: true
+  }));
+  mainWindow.once("ready-to-show", () => {
+    splash.hide();
+    mainWindow.show();
+    mainWindow.maximize();
+    autoUpdater.checkForUpdatesAndNotify();
+  });
 }
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+  autoUpdater.checkForUpdates();
+});
 
 
 app.on('window-all-closed', function () {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 })
 
 app.on('activate', function () {
-    if (mainWindow === null) {
-        createWindow();
-        mainWindow.focus();
-    }
+  if (mainWindow === null) {
+    createWindow();
+    mainWindow.focus();
+  }
 })
 
 let tray = null;
 app.on('minimize', function (event) {
-    event.preventDefault();
-    mainWindow.hide();
-    tray = createTray();
+  event.preventDefault();
+  mainWindow.hide();
+  tray = createTray();
 });
 
 app.on('restore', function () {
-    mainWindow.minimize()
-    mainWindow.show();
-    app.focus();
-    tray.destroy();
+  mainWindow.minimize()
+  mainWindow.show();
+  app.focus();
+  tray.destroy();
 });
 
 autoUpdater.on('update-available', () => {
-    mainWindow.webContents.send('update_available');
+  mainWindow.webContents.send('update_available');
+  let pth = autoUpdater.downloadUpdate();
+  mainWindow.showMessage(pth);
 });
 
 autoUpdater.on('update-downloaded', () => {
-    mainWindow.webContents.send('update_downloaded');
+  mainWindow.webContents.send('update_downloaded');
 });
 
+//Global exception handler
+process.on("uncaughtException", function (err) {
+  console.log(err);
+});
+
+
 ipcMain.on('restart_app', () => {
-    autoUpdater.quitAndInstall();
+  autoUpdater.quitAndInstall();
 });
 
 ipcMain.on('app_version', (event) => {
-    event.sender.send('app_version', { version: app.getVersion() });
+  event.sender.send('app_version', { version: app.getVersion() });
 });
