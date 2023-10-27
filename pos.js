@@ -80,8 +80,6 @@ app.on('restore', function () {
 
 autoUpdater.on('update-available', () => {
   mainWindow.webContents.send('update_available');
-  let pth = autoUpdater.downloadUpdate();
-  mainWindow.showMessage(pth);
 });
 
 autoUpdater.on('update-downloaded', () => {
@@ -93,6 +91,12 @@ process.on("uncaughtException", function (err) {
   console.log(err);
 });
 
+ipcMain.on('downloadUpdate', () => {
+  console.log('Downloading');
+  let pth = autoUpdater.downloadUpdate();
+  console.log(pth);
+  mainWindow.showMessage(pth);
+});
 
 ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
