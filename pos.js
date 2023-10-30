@@ -102,6 +102,13 @@ ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
 
+ipcMain.on('check_for_updates', () => {
+  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.on('update-not-available', () => {
+    mainWindow.webContents.send('update_not_available');
+  });
+});
+
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
