@@ -94,15 +94,8 @@ autoUpdater.on('download-progress', (progressObj) => {
   let log_message = "Download speed: " + progressObj.bytesPerSecond;
   log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
   log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  sendStatusToWindow(log_message);
+  mainWindow.webContents.send('progress', log_message);
 })
-
-function sendStatusToWindow(text) {
-  log.info(text);
-  ipcMain.on('app_version', (event) => {
-    event.sender.send('progress', text);
-  });
-}
 
 //Global exception handler
 process.on("uncaughtException", function (err) {
