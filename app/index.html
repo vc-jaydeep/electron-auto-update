@@ -567,6 +567,7 @@
   <button id="update-checker" onclick="CheckForUpdate()">Check for update</button>
   <div id="notification" class="hidden">
     <p id="message"></p>
+    <p id="progress"></p>
     <button id="close-button" onclick="closeNotification()">
       Close
     </button>
@@ -589,15 +590,22 @@
     const updateChecker = document.getElementById('update-checker');
     const notification = document.getElementById('notification');
     const message = document.getElementById('message');
+    const progress = document.getElementById('progress');
     const restartButton = document.getElementById('restart-button');
     const downloadButton = document.getElementById('download-button');
     message.innerText = 'A new update is available. Please click on download button';
+
     ipcRenderer.on('update_available', () => {
-      ipcRenderer.removeAllListeners('update_available');
       notification.classList.remove('hidden');
       downloadButton.classList.remove('hidden');
       updateChecker.disabled = true;
     });
+
+    ipcRenderer.on('progress', (event, arg) => {
+      console.log(event, arg);
+      progress.innerText = 'Progress: ' + arg;
+    })
+
     ipcRenderer.on('update_downloaded', () => {
       ipcRenderer.removeAllListeners('update_downloaded');
       message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
@@ -605,22 +613,28 @@
       notification.classList.remove('hidden');
       downloadButton.classList.add('hidden');
     });
+
     ipcRenderer.on('update_not_available', () => {
       message.innerText = 'No update available.';
       notification.classList.remove('hidden');
     });
+
     function downloadUpdate() {
       console.log('Downloading from index...');
       message.innerText = 'A new update is available. Downloading now...';
       ipcRenderer.send('downloadUpdate');
       downloadButton.classList.add('hidden');
     }
+
     function CheckForUpdate() {
       ipcRenderer.send('check_for_updates');
     }
+
     function closeNotification() {
       notification.classList.add('hidden');
+      updateChecker.disabled = false;
     }
+
     function restartApp() {
       ipcRenderer.send('restart_app');
     }

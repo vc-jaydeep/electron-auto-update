@@ -86,6 +86,24 @@ autoUpdater.on('update-downloaded', () => {
   mainWindow.webContents.send('update_downloaded');
 });
 
+autoUpdater.on('update-not-available', () => {
+  mainWindow.webContents.send('update_not_available');
+});
+
+autoUpdater.on('download-progress', (progressObj) => {
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  sendStatusToWindow(log_message);
+})
+
+function sendStatusToWindow(text) {
+  log.info(text);
+  ipcMain.on('app_version', (event) => {
+    event.sender.send('progress', text);
+  });
+}
+
 //Global exception handler
 process.on("uncaughtException", function (err) {
   console.log(err);
@@ -104,9 +122,6 @@ ipcMain.on('restart_app', () => {
 
 ipcMain.on('check_for_updates', () => {
   autoUpdater.checkForUpdatesAndNotify();
-  autoUpdater.on('update-not-available', () => {
-    mainWindow.webContents.send('update_not_available');
-  });
 });
 
 ipcMain.on('app_version', (event) => {
